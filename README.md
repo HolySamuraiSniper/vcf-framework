@@ -1,0 +1,126 @@
+# vcf-framework
+
+A Claude Code plugin that wraps the **Vibe Coder Framework** — a 10-step development loop for shipping production-quality features end-to-end — into gate-mode slash commands. Each step is its own command, reads its upstream artifact, writes its own output, and tells you to `/clear` before the next gate.
+
+This is what GSD looks like for solo / small-team development without the milestone-level overhead.
+
+## Two execution modes
+
+Pick the mode by tier (see `/vcf-framework:overview` for tier definitions):
+
+| Mode | When | How |
+|---|---|---|
+| **In-session** (`/vcf-framework:overview` reads the doctrine, then you stay in one chat) | Tier 1–2 momentum work | One conversation, all 10 steps inline |
+| **Gate mode** (this plugin's primary use) | Tier 3+ work | One slash command per step + `/clear` between every gate |
+
+## The 8 gate commands
+
+In order. Each refuses to run if its upstream prereq file is missing in `.vcf/<feature-slug>/`.
+
+| Command | Step | Reads | Writes |
+|---|---|---|---|
+| `/vcf-framework:context <slug>` | 01 | memory, git history, CLAUDE.md, AGENTS.md | `CONTEXT.md`, bootstraps `STATUS.md` |
+| `/vcf-framework:brainstorm <slug>` | 02 | `CONTEXT.md` | `design.md` |
+| `/vcf-framework:prd <slug>` | 03 | `design.md` | `PRD.md` |
+| `/vcf-framework:plan <slug>` | 04 | `PRD.md` | `PLAN.md` (via Plan Mode for multi-file work) |
+| `/vcf-framework:build <slug>` | 05 | `PLAN.md`, current slice in `STATUS.md` | appends to `BUILD-NOTES.md` |
+| `/vcf-framework:audit <slug>` | 06 | `BUILD-NOTES.md`, `PRD.md` | `REVIEW-slice-N.md` |
+| `/vcf-framework:final-audit <slug>` | 08.5 | everything | `FINAL-REVIEW.md`, `VERIFY.md` |
+| `/vcf-framework:closeout <slug>` | 09 | `FINAL-REVIEW.md`, `VERIFY.md` | `CLOSEOUT.md`, ships, writes back to memory |
+
+Plus one reference skill: `/vcf-framework:overview` — the 10-step doctrine, tier system, and Joey playbook. Read this once when first using the plugin.
+
+(Steps 07 `kaizen` and 08 `sprint` are intentionally not gate commands — they're tactical sub-loops inside `/vcf-framework:build`. See the overview for guidance.)
+
+## State convention
+
+Each invocation reads/writes files in `<cwd>/.vcf/<feature-slug>/`:
+
+```
+<cwd>/.vcf/<feature-slug>/
+├── STATUS.md          # Loop tracker — single source of truth for "where am I"
+├── CONTEXT.md         # output of /vcf-framework:context
+├── design.md          # output of /vcf-framework:brainstorm
+├── PRD.md             # output of /vcf-framework:prd
+├── PLAN.md            # output of /vcf-framework:plan
+├── BUILD-NOTES.md     # appended by /vcf-framework:build per slice
+├── REVIEW-slice-N.md  # output of /vcf-framework:audit per slice
+├── FINAL-REVIEW.md    # output of /vcf-framework:final-audit
+├── VERIFY.md          # goal-backward check from /vcf-framework:final-audit
+└── CLOSEOUT.md        # output of /vcf-framework:closeout
+```
+
+Add `.vcf/` to your repo's `.gitignore` unless you want to commit framework state alongside code.
+
+## Typical flow
+
+```
+/vcf-framework:context my-feature
+/clear
+/vcf-framework:brainstorm my-feature
+/clear
+/vcf-framework:prd my-feature
+/clear
+/vcf-framework:plan my-feature
+/clear
+/vcf-framework:build my-feature        # slice 1
+/clear
+/vcf-framework:audit my-feature        # review slice 1
+/clear
+/vcf-framework:build my-feature        # slice 2
+/clear
+/vcf-framework:audit my-feature        # review slice 2
+... (repeat per slice in PLAN.md)
+/vcf-framework:final-audit my-feature  # whole-feature sweep
+/clear
+/vcf-framework:closeout my-feature     # ship + memory write-back
+```
+
+Each `/clear` resets context. Each gate skill reads only the upstream artifact, not your chat history. Total context budget per gate stays bounded — the secret to long-running features without conversation cruft.
+
+## Installation
+
+Local install (for development on your own machine):
+
+```bash
+cd ~/Projects/vcf-framework
+claude --plugin-dir .   # or whatever the current Claude Code CLI flag is
+```
+
+Or copy/symlink to `~/.claude/plugins/marketplaces/local/vcf-framework/` for persistent install across sessions.
+
+After installing, verify in a fresh session:
+
+```
+/help    # should show /vcf-framework:* commands
+```
+
+## Tier guide (from /vcf-framework:overview)
+
+| Tier | Trigger | Mode |
+|---|---|---|
+| 1 — Tiny | Typo, 1-line bugfix | Skip framework, just code |
+| 2 — Small | 1 feature, 1–3 files, design obvious | In-session: `/vcf-framework:context` → `/vcf-framework:build` → `/vcf-framework:closeout` |
+| **3 — Medium** ⭐ | Multi-file, real decisions, half-day to 1 day | Gate mode, full 8-command sequence |
+| 4 — Grindy | 5+ similar items (batch work) | Design once (gate mode through `:plan`), then Ralph executes |
+| 5 — Security-critical | Auth, RLS, OAuth, payment, multi-tenancy | Gate mode + `/codex challenge` at `:audit`, security extras at `:final-audit` |
+| 6 — True milestone | Multi-week, novel architecture | GSD outline + Tier 3 VCF per vertical slice |
+
+## What the framework guarantees
+
+- **No PRD drift**: scope is locked at `:prd`, audited against at `:final-audit`
+- **No reviewer brief contamination**: every audit invocation runs in fresh context (Agent tool) or sub-agent (Skill tool wrapping `/codex`)
+- **Two audit gates**: per-slice (`:audit`) catches local bugs; whole-feature (`:final-audit`) catches integration drift
+- **Memory write-back**: `:closeout` always feeds claude-mem + Obsidian vault. The loop compounds.
+
+## What it doesn't do
+
+- Replace GSD for true Tier-6 milestones. Use GSD's milestone scaffolding (`/gsd-new-milestone`, `/gsd-new-phase`) plus this plugin per vertical slice.
+- Auto-detect tier. You pick. (Add tier explicitly to `STATUS.md` after `:context`.)
+- Pick model defaults. Provider config lives in your project's own config.
+
+## Author
+
+Toki Wilkinson · [@HolySamuraiSniper](https://github.com/HolySamuraiSniper)
+
+Built with Claude Code · MIT licensed

@@ -1,0 +1,13 @@
+{
+  "name": "vcf-framework",
+  "version": "0.1.0",
+  "description": "Vibe Coder Framework — 10-step development loop with gate-mode discipline. Each step is a slash command that reads upstream artifacts and writes its own, so /clear can run between every gate.",
+  "author": {
+    "name": "Toki Wilkinson",
+    "email": "toki@lykkeligai.dk"
+  },
+  "homepage": "https://github.com/HolySamuraiSniper/vcf-framework",
+  "repository": "https://github.com/HolySamuraiSniper/vcf-framework",
+  "license": "MIT",
+  "keywords": ["workflow", "tdd", "code-review", "vcf", "framework", "gsd-alternative", "claude-code"]
+}
