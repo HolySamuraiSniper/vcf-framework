@@ -22,7 +22,7 @@ Takes one argument: `<feature-slug>`.
 - Every slice in `PLAN.md` must be marked `audited` in `STATUS.md`'s `## Slice progress` section.
 - All `REVIEW-slice-*.md` files must show zero open P0 findings.
 
-If any slice is `pending`, `built — awaiting audit`, or `audit p0 fixing`, **halt** and route the user back to `/vcf-framework:build` or `/vcf-framework:audit`.
+If any slice is `pending`, `built — awaiting audit`, or `audit p0 fixing`, **halt** and route the user back to `/vcf-framework:build` or `/vcf-framework:slice-audit`.
 
 ## Inputs to read
 
@@ -81,7 +81,7 @@ If Step 08.5 finds issues every Step 06 missed, that's signal. Log them in `/vcf
 
 ## After this step
 
-If `FINAL-REVIEW.md` or `VERIFY.md` surface unresolved P0/P1: fix them. Likely a new `/vcf-framework:build` + `/vcf-framework:audit` cycle on a targeted slice. Do not proceed to closeout with open P0/P1.
+If `FINAL-REVIEW.md` or `VERIFY.md` surface unresolved P0/P1: fix them. Likely a new `/vcf-framework:build` + `/vcf-framework:slice-audit` cycle on a targeted slice. Do not proceed to closeout with open P0/P1.
 
 Otherwise:
 

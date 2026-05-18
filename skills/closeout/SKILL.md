@@ -65,7 +65,7 @@ Then update `wiki/_index.md` and the domain index.
 
 ### 5. Slice-audit calibration (the meta-feedback step)
 
-If `/vcf-framework:final-audit` caught issues that `/vcf-framework:audit` (per-slice) missed, note the *kind* of issue here. Pattern: <what kind of bug>, <why slice-audit missed it>, <what would have caught it>. This is the feedback loop for the framework itself.
+If `/vcf-framework:final-audit` caught issues that `/vcf-framework:slice-audit` (per-slice) missed, note the *kind* of issue here. Pattern: <what kind of bug>, <why slice-audit missed it>, <what would have caught it>. This is the feedback loop for the framework itself.
 
 Most loops will have at least one of these. Skipping this section means the framework stops improving.
 

@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "vcf-framework-local",
-  "description": "Vibe Coder Framework — solo-dev gate-mode framework for shipping production-quality features end-to-end. 10-step loop with /clear discipline between gates.",
+  "description": "Vibe Coder Framework — solo-dev gate-mode framework for shipping production-quality features end-to-end. 10-step doctrine, 8 gate commands, /clear between gates.",
   "owner": {
     "name": "Toki Wilkinson",
     "email": "toki@lykkeligai.dk"
@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "vcf-framework",
-      "description": "10-step development loop with gate-mode discipline. /vcf-framework:context, :brainstorm, :prd, :plan, :build, :audit, :final-audit, :closeout. Each step reads upstream artifact, writes its own, instructs user to /clear before next gate.",
+      "description": "10-step doctrine, 8 gate commands: /vcf-framework:context, :brainstorm, :prd, :plan, :build, :slice-audit, :final-audit, :closeout. Plus :overview for reference. Each gate reads upstream artifact, writes its own, instructs user to /clear before next gate. In-loop kaizen + sprint sub-steps live inside :build.",
       "author": {
         "name": "Toki Wilkinson",
         "email": "toki@lykkeligai.dk"

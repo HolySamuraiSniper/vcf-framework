@@ -1,6 +1,6 @@
 # vcf-framework
 
-A Claude Code plugin that wraps the **Vibe Coder Framework** — a 10-step development loop for shipping production-quality features end-to-end — into gate-mode slash commands. Each step is its own command, reads its upstream artifact, writes its own output, and tells you to `/clear` before the next gate.
+A Claude Code plugin that wraps the **Vibe Coder Framework** — a 10-step doctrine with 8 gate commands — for shipping production-quality features end-to-end. Each gate is its own slash command, reads its upstream artifact, writes its own output, and tells you to `/clear` before the next gate. Two in-loop sub-steps (kaizen, sprint) live inside `:build` and aren't gate commands.
 
 This is what GSD looks like for solo / small-team development without the milestone-level overhead.
 
@@ -24,7 +24,7 @@ In order. Each refuses to run if its upstream prereq file is missing in `.vcf/<f
 | `/vcf-framework:prd <slug>` | 03 | `design.md` | `PRD.md` |
 | `/vcf-framework:plan <slug>` | 04 | `PRD.md` | `PLAN.md` (via Plan Mode for multi-file work) |
 | `/vcf-framework:build <slug>` | 05 | `PLAN.md`, current slice in `STATUS.md` | appends to `BUILD-NOTES.md` |
-| `/vcf-framework:audit <slug>` | 06 | `BUILD-NOTES.md`, `PRD.md` | `REVIEW-slice-N.md` |
+| `/vcf-framework:slice-audit <slug>` | 06 | `BUILD-NOTES.md`, `PRD.md` | `REVIEW-slice-N.md` |
 | `/vcf-framework:final-audit <slug>` | 08.5 | everything | `FINAL-REVIEW.md`, `VERIFY.md` |
 | `/vcf-framework:closeout <slug>` | 09 | `FINAL-REVIEW.md`, `VERIFY.md` | `CLOSEOUT.md`, ships, writes back to memory |
 
@@ -44,7 +44,7 @@ Each invocation reads/writes files in `<cwd>/.vcf/<feature-slug>/`:
 ├── PRD.md             # output of /vcf-framework:prd
 ├── PLAN.md            # output of /vcf-framework:plan
 ├── BUILD-NOTES.md     # appended by /vcf-framework:build per slice
-├── REVIEW-slice-N.md  # output of /vcf-framework:audit per slice
+├── REVIEW-slice-N.md  # output of /vcf-framework:slice-audit per slice
 ├── FINAL-REVIEW.md    # output of /vcf-framework:final-audit
 ├── VERIFY.md          # goal-backward check from /vcf-framework:final-audit
 └── CLOSEOUT.md        # output of /vcf-framework:closeout
@@ -65,11 +65,11 @@ Add `.vcf/` to your repo's `.gitignore` unless you want to commit framework stat
 /clear
 /vcf-framework:build my-feature        # slice 1
 /clear
-/vcf-framework:audit my-feature        # review slice 1
+/vcf-framework:slice-audit my-feature        # review slice 1
 /clear
 /vcf-framework:build my-feature        # slice 2
 /clear
-/vcf-framework:audit my-feature        # review slice 2
+/vcf-framework:slice-audit my-feature        # review slice 2
 ... (repeat per slice in PLAN.md)
 /vcf-framework:final-audit my-feature  # whole-feature sweep
 /clear
@@ -103,14 +103,14 @@ After installing, verify in a fresh session:
 | 2 — Small | 1 feature, 1–3 files, design obvious | In-session: `/vcf-framework:context` → `/vcf-framework:build` → `/vcf-framework:closeout` |
 | **3 — Medium** ⭐ | Multi-file, real decisions, half-day to 1 day | Gate mode, full 8-command sequence |
 | 4 — Grindy | 5+ similar items (batch work) | Design once (gate mode through `:plan`), then Ralph executes |
-| 5 — Security-critical | Auth, RLS, OAuth, payment, multi-tenancy | Gate mode + `/codex challenge` at `:audit`, security extras at `:final-audit` |
+| 5 — Security-critical | Auth, RLS, OAuth, payment, multi-tenancy | Gate mode + `/codex challenge` at `:slice-audit`, security extras at `:final-audit` |
 | 6 — True milestone | Multi-week, novel architecture | GSD outline + Tier 3 VCF per vertical slice |
 
 ## What the framework guarantees
 
 - **No PRD drift**: scope is locked at `:prd`, audited against at `:final-audit`
 - **No reviewer brief contamination**: every audit invocation runs in fresh context (Agent tool) or sub-agent (Skill tool wrapping `/codex`)
-- **Two audit gates**: per-slice (`:audit`) catches local bugs; whole-feature (`:final-audit`) catches integration drift
+- **Two audit gates**: per-slice (`:slice-audit`) catches local bugs; whole-feature (`:final-audit`) catches integration drift
 - **Memory write-back**: `:closeout` always feeds claude-mem + Obsidian vault. The loop compounds.
 
 ## What it doesn't do

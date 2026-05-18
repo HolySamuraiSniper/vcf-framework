@@ -1,9 +1,9 @@
 ---
-name: audit
-description: VCF gate-mode Step 06 — independent per-slice reviewer that runs in fresh context (not the build agent's context). Picks invocation by tier — feature-dev:code-reviewer for T1-2, /codex review for T3, pr-review-toolkit:code-reviewer for T4, /codex challenge for T5. Reads BUILD-NOTES.md and PRD.md. Writes .vcf/<feature-slug>/REVIEW-slice-N.md. Use when the user runs /vcf-framework:audit, says "vcf audit X", "review slice N", or has completed a /vcf-framework:build slice and needs per-slice review before the next slice or before /vcf-framework:final-audit.
+name: slice-audit
+description: VCF gate-mode Step 06 — independent per-slice reviewer that runs in fresh context (not the build agent's context). Picks invocation by tier — feature-dev:code-reviewer for T1-2, /codex review for T3, pr-review-toolkit:code-reviewer for T4, /codex challenge for T5. Reads BUILD-NOTES.md and PRD.md. Writes .vcf/<feature-slug>/REVIEW-slice-N.md. Use when the user runs /vcf-framework:slice-audit, says "vcf slice-audit X", "vcf audit slice N", "review slice N", or has completed a /vcf-framework:build slice and needs per-slice review before the next slice or before /vcf-framework:final-audit.
 ---
 
-# /vcf-framework:audit — Step 06: Independent reviewer (per build slice)
+# /vcf-framework:slice-audit — Step 06: Independent reviewer (per build slice)
 
 **Goal:** A second pair of eyes that hasn't seen your reasoning, looking specifically for what the original author can't see *on the slice just built*.
 

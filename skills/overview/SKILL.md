@@ -5,14 +5,14 @@ description: Loads the Vibe Coder Framework 10-step doctrine — tier system, an
 
 # Vibe Coder Framework — Overview
 
-A 10-step loop for moving from vague idea to shipped feature without the usual mid-flight chaos. The shape is **context-in → context-out**: every cycle starts by reading from memory + git history and ends by writing back what was learned, so the next cycle compounds. Two audit gates: **/vcf-framework:audit** (per-slice, during build) and **/vcf-framework:final-audit** (whole-feature, before closeout).
+A 10-step loop for moving from vague idea to shipped feature without the usual mid-flight chaos. The shape is **context-in → context-out**: every cycle starts by reading from memory + git history and ends by writing back what was learned, so the next cycle compounds. Two audit gates: **/vcf-framework:slice-audit** (per-slice, during build) and **/vcf-framework:final-audit** (whole-feature, before closeout).
 
 ## Two execution modes
 
 | Mode | When | How |
 |---|---|---|
 | **In-session** | Tier 1–2 momentum work, design is obvious, all in one chat | Read this overview, walk all 10 steps inline in the current conversation |
-| **Gate mode** (default for Tier 3+) | Tier 3+ multi-session work | One slash command per gate step + `/clear` between every gate. Use `/vcf-framework:context`, `:brainstorm`, `:prd`, `:plan`, `:build`, `:audit`, `:final-audit`, `:closeout`. |
+| **Gate mode** (default for Tier 3+) | Tier 3+ multi-session work | One slash command per gate step + `/clear` between every gate. Use `/vcf-framework:context`, `:brainstorm`, `:prd`, `:plan`, `:build`, `:slice-audit`, `:final-audit`, `:closeout`. |
 
 ## Core philosophy
 
@@ -57,7 +57,7 @@ Lock scope and acceptance criteria before architecture. Capture user stories, **
 
 One vertical slice per invocation. Use `superpowers:test-driven-development`. Write failing tests from acceptance criteria. Smallest change to green. Then evals: semantic correctness, perf vs PRD budget, edge cases, regression. Tests passing ≠ correct.
 
-### Step 06 — `/vcf-framework:audit` — Independent reviewer (per build slice)
+### Step 06 — `/vcf-framework:slice-audit` — Independent reviewer (per build slice)
 
 **Mandatory, not optional.** Pick invocation by tier:
 
@@ -137,7 +137,7 @@ When this framework runs on the Joey codebase (`/Users/tokiwilkinson/Projects/jo
 | **2 — Small** | 1 feature touching 1–3 files, design is obvious, <1 day | 1–3 hr | In-session: context (light) → build → closeout |
 | **3 — Medium** ⭐ default | Multi-file feature, real design decisions, half-day to 1 day | 4–8 hr | Full gate mode, all 8 slash commands |
 | **4 — Grindy** | 5+ similar items (per-provider onboarding, batch tests, translations) | day-shift design + overnight execution | Gate mode through `:plan`, then Ralph executes |
-| **5 — Security-critical** | Touches auth, RLS, OAuth, payment, multi-tenancy | Tier 3 + ~30 min | Gate mode + `/codex challenge` at `:audit`, security extras at `:final-audit` |
+| **5 — Security-critical** | Touches auth, RLS, OAuth, payment, multi-tenancy | Tier 3 + ~30 min | Gate mode + `/codex challenge` at `:slice-audit`, security extras at `:final-audit` |
 | **6 — True milestone** | Multi-week, novel architecture (e.g., Phase 27 Episodic Memory) | Weeks | GSD outline + Tier 3 gate mode per vertical slice |
 
 ### Joey-specific skill substitutions
@@ -150,7 +150,7 @@ When this framework runs on the Joey codebase (`/Users/tokiwilkinson/Projects/jo
 | **03 :prd** | `to-prd` writes `.scratch/<feature>/PRD.md`, feeds `to-issues` downstream. |
 | **04 :plan** | Plan Mode mandatory for multi-file. `superpowers:writing-plans` for smaller. |
 | **05 :build** | `superpowers:test-driven-development` OR Joey's local `/tdd` skill. Pre-commit hook auto-validates. |
-| **06 :audit** | Per tier table above. Security PR → `/codex challenge --background`. |
+| **06 :slice-audit** | Per tier table above. Security PR → `/codex challenge --background`. |
 | **07 kaizen** | 10–20 min after audit fixes are in. One commit per win. |
 | **08 sprint** | `TeamCreate` per CLAUDE.md mandate. `pnpm ralph` for grindy Tier-4 work. |
 | **08.5 :final-audit** | Chain `/gsd-code-review` → `/codex review` → `/gsd-verify-work` → `/gsd-code-review-fix`. Tier 5 also: `pr-review-toolkit:silent-failure-hunter` + `gsd-security-auditor`. Post-auth UI also: `Skill: audit`. |
