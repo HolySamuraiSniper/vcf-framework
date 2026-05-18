@@ -28,7 +28,16 @@ If no slice is awaiting audit, **halt** and tell the user: "No slice awaiting au
 
 ## Process
 
-Pick the reviewer invocation by tier (read tier from STATUS.md):
+### 1. Identify the slice and tier
+
+Read STATUS.md. Extract:
+
+- The slice currently marked `built — awaiting audit` in `## Slice progress` (this is the slice you'll audit).
+- The `**Tier:**` value from the header (1, 2, 3, 4, or 5).
+
+**If `**Tier:**` is `UNSET` or missing:** halt without invoking any reviewer. Tell the user verbatim: "Cannot pick reviewer for `<feature-slug>` — Tier is UNSET in STATUS.md. Set `**Tier:**` to 1, 2, 3, 4, or 5 per `/vcf-framework:overview` tier table, then re-run `/vcf-framework:slice-audit <feature-slug>`."
+
+### 2. Pick the reviewer invocation by tier
 
 | Tier | Invocation | Why this one |
 |---|---|---|

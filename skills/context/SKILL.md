@@ -40,7 +40,7 @@ If `STATUS.md` already exists, this is a re-run — read it, note the existing s
 
 Do these in parallel where independent:
 
-- Persistent memory: `claude-mem:mem-search` if available, otherwise scan `~/.claude/projects/*/memory/MEMORY.md` and topic files for prior related decisions
+- Persistent memory: `claude-mem:mem-search` if registered, otherwise scan `~/.claude/projects/*/memory/MEMORY.md` and topic files for prior related decisions. **If `claude-mem:*` tools are not registered in this session, do not halt — fall back to grep + Read on the memory dir.**
 - `git log --oneline -30` and `git log --all --oneline -50 -- <relevant-paths>` to see recent direction
 - `git blame` on files likely to be touched — the *why* lives in commit messages
 - Project `CLAUDE.md`, `AGENTS.md`, repo conventions doc, glossary

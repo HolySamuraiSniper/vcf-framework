@@ -22,7 +22,7 @@ Takes one argument: `<feature-slug>`.
 - Every slice in `PLAN.md` must be marked `audited` in `STATUS.md`'s `## Slice progress` section.
 - All `REVIEW-slice-*.md` files must show zero open P0 findings.
 
-If any slice is `pending`, `built — awaiting audit`, or `audit p0 fixing`, **halt** and route the user back to `/vcf-framework:build` or `/vcf-framework:slice-audit`.
+If any slice is `pending`, `built — awaiting audit`, or `audit p0 fixing`, **halt without running any chain step**. Append `- 08.5 halted at <timestamp> — slice <N> not ready` to STATUS.md's step log, then tell the user verbatim: "Cannot run final-audit for `<feature-slug>` — slice <N> is `<status>`. Run `/clear` then `/vcf-framework:build <feature-slug>` (or `/vcf-framework:slice-audit <feature-slug>`) first." Do not proceed.
 
 ## Inputs to read
 
@@ -54,22 +54,24 @@ Invoke via `Skill` tool with `skill: "gsd-verify-work"`. Goal-backward verificat
 
 Write its output to `<cwd>/.vcf/<feature-slug>/VERIFY.md`.
 
-### 4. `/gsd-code-review-fix`
+### 4. (Tier 5 only) Security extras
+
+- `Agent` tool with `subagent_type: "pr-review-toolkit:silent-failure-hunter"` — hunts swallowed errors, inadequate fallbacks, catch blocks that hide bugs. Append findings to `FINAL-REVIEW.md` under `## Silent failure hunt`.
+- `Agent` tool with `subagent_type: "gsd-security-auditor"` — verifies threat-model mitigations from `PLAN.md`'s threat-model section actually exist in shipped code. Write its output to `<cwd>/.vcf/<feature-slug>/SECURITY.md`.
+
+### 5. (Frontend / UI work only) Quality sweep
+
+`Skill` tool with `skill: "audit"` — technical quality sweep across a11y, performance, theming, responsive, anti-patterns with P0–P3 scoring. Append findings to `FINAL-REVIEW.md` under `## UI quality audit`.
+
+### 6. `/gsd-code-review-fix` (runs LAST — auto-fix sees the full P0/P1 set from all prior steps)
 
 Invoke via `Skill` tool with `skill: "gsd-code-review-fix"`. Auto-applies fixes from `FINAL-REVIEW.md` as atomic commits, one per fix. Produces `REVIEW-FIX.md`.
 
 **Skip if `FINAL-REVIEW.md` has zero P0 / zero P1 findings.**
 
+This step runs last because Steps 4 and 5 (Tier 5 / UI) append findings to `FINAL-REVIEW.md`. Running auto-fix before those would miss their findings entirely.
+
 Copy resulting `REVIEW-FIX.md` to `<cwd>/.vcf/<feature-slug>/FINAL-REVIEW-FIX.md`.
-
-### 5. (Tier 5 only) Security extras
-
-- `Agent` tool with `subagent_type: "pr-review-toolkit:silent-failure-hunter"` — hunts swallowed errors, inadequate fallbacks, catch blocks that hide bugs. Append findings to `FINAL-REVIEW.md` under `## Silent failure hunt`.
-- `Agent` tool with `subagent_type: "gsd-security-auditor"` — verifies threat-model mitigations from `PLAN.md`'s threat-model section actually exist in shipped code. Write its output to `<cwd>/.vcf/<feature-slug>/SECURITY.md`.
-
-### 6. (Frontend / UI work only) Quality sweep
-
-`Skill` tool with `skill: "audit"` — technical quality sweep across a11y, performance, theming, responsive, anti-patterns with P0–P3 scoring. Append findings to `FINAL-REVIEW.md` under `## UI quality audit`.
 
 ## Discipline
 
@@ -81,7 +83,7 @@ If Step 08.5 finds issues every Step 06 missed, that's signal. Log them in `/vcf
 
 ## After this step
 
-If `FINAL-REVIEW.md` or `VERIFY.md` surface unresolved P0/P1: fix them. Likely a new `/vcf-framework:build` + `/vcf-framework:slice-audit` cycle on a targeted slice. Do not proceed to closeout with open P0/P1.
+If `FINAL-REVIEW.md` or `VERIFY.md` surface unresolved P0/P1 (i.e., issues the auto-fix in Step 6 couldn't or shouldn't auto-resolve): **halt and leave the gate open**. Append `- 08.5 halted at <timestamp> — N P0/P1 findings unresolved` to STATUS.md, set `**Current step:**` to `05 — /vcf-framework:build (slice <N> remediation)`, and tell the user: "Final audit found <N> unresolved P0/P1 findings for `<feature-slug>` — see FINAL-REVIEW.md. Run `/clear` then `/vcf-framework:build <feature-slug>` to remediate, then re-run `/vcf-framework:final-audit`." Closeout is blocked until this clears.
 
 Otherwise:
 
