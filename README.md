@@ -80,19 +80,28 @@ Each `/clear` resets context. Each gate skill reads only the upstream artifact, 
 
 ## Installation
 
-Local install (for development on your own machine):
+```bash
+claude plugin marketplace add HolySamuraiSniper/vcf-framework
+claude plugin install vcf-framework@vcf-framework
+```
+
+Verify the install:
 
 ```bash
-cd ~/Projects/vcf-framework
-claude --plugin-dir .   # or whatever the current Claude Code CLI flag is
+claude plugin details vcf-framework@vcf-framework
 ```
 
-Or copy/symlink to `~/.claude/plugins/marketplaces/local/vcf-framework/` for persistent install across sessions.
+You should see 9 skills (v0.1) or 24 skills (v0.2+) in the component inventory. In a fresh Claude Code session, type `/vcf-framework:overview` to load the doctrine reference.
 
-After installing, verify in a fresh session:
+### Local development install
 
-```
-/help    # should show /vcf-framework:* commands
+If you're hacking on the plugin itself:
+
+```bash
+git clone https://github.com/HolySamuraiSniper/vcf-framework.git
+cd vcf-framework
+claude plugin marketplace add .
+claude plugin install vcf-framework@vcf-framework
 ```
 
 ## Tier guide (from /vcf-framework:overview)

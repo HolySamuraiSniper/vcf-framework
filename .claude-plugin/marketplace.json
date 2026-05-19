@@ -1,6 +1,6 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
-  "name": "vcf-framework-local",
+  "name": "vcf-framework",
   "description": "Vibe Coder Framework — solo-dev gate-mode framework for shipping production-quality features end-to-end. 10-step doctrine, 8 gate commands, /clear between gates.",
   "owner": {
     "name": "Toki Wilkinson",
