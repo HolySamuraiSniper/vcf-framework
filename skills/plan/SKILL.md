@@ -109,6 +109,23 @@ How each slice proves itself before the next starts:
 - <risk> — <mitigation>
 ```
 
+## Final step — Goal-backward plan-check (before exiting Plan Mode)
+
+Before approving the plan via `ExitPlanMode`, run a goal-backward check against PRD acceptance criteria. For each criterion in PRD.md:
+
+- [ ] Can you point to the specific slice (`#N` from the phase table) that delivers it?
+- [ ] Can you point to the specific file(s) in that slice's `Files` column where the delivery happens?
+- [ ] Can you point to the specific verification (`Verification` column) that proves it?
+
+**If any criterion fails one of these three checks, the plan has a gap.** Fix the gap before exiting Plan Mode — either add a slice, move a criterion out of scope (move it to PRD's OUT list), or accept that the plan is incomplete and route back to `:prd` to renegotiate scope.
+
+A plan that exits Plan Mode without surviving this check ships features that don't deliver what was promised. The build phase can't catch this — it's too late by then.
+
+## Alternative tools
+
+- **Alternative slice breakdown** — Pocock's `to-issues` writes one markdown file per slice in `.scratch/<feature>/`. Coexists with our PLAN.md slice table; pick whichever fits the work. Install separately if not already present.
+- **UI / frontend slices** — Invoke `/design-shotgun` (gstack) to generate multiple visual variants before locking the slice. References Stitch / v0 / Magic MCPs internally. Use this BEFORE writing the slice into PLAN.md when the slice is UI-heavy.
+
 ## Discipline
 
 A plan that doesn't survive contact with the code is fine — adjust and continue. A plan you skipped because "it's obvious" is the one that bites.

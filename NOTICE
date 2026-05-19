@@ -1,0 +1,56 @@
+vcf-framework
+Copyright (c) 2026 Toki Wilkinson
+
+This product includes skills ported from the following open-source projects.
+All ported skills retain their original MIT license terms and carry attribution
+headers inside their SKILL.md bodies.
+
+================================================================================
+Ported from mattpocock/skills (MIT License)
+Author: Matt Pocock
+Source: https://github.com/mattpocock/skills
+================================================================================
+
+- skills/handoff/SKILL.md
+- skills/zoom-out/SKILL.md
+- skills/prototype/SKILL.md (+ LOGIC.md, UI.md)
+- skills/diagnose/SKILL.md
+- skills/improve-codebase-architecture/SKILL.md (+ LANGUAGE.md, DEEPENING.md, INTERFACE-DESIGN.md)
+- skills/write-a-skill/SKILL.md
+- skills/setup-precommit/SKILL.md (originally `setup-pre-commit`)
+- skills/grill-with-docs/SKILL.md (+ CONTEXT-FORMAT.md, ADR-FORMAT.md)
+
+================================================================================
+Ported from multica-ai/andrej-karpathy-skills (MIT License)
+Behavioral principles by Andrej Karpathy. Original repo forked from forrestchang.
+Source: https://github.com/multica-ai/andrej-karpathy-skills
+================================================================================
+
+- skills/karpathy-guidelines/SKILL.md
+
+================================================================================
+Adapted from gsd-build/get-shit-done (MIT License)
+Pattern: forensics post-mortem investigation
+Source: https://github.com/gsd-build/get-shit-done
+================================================================================
+
+- skills/forensics/SKILL.md  (pattern adapted; integrates with .vcf/<slug>/ state instead of .planning/)
+
+================================================================================
+Patterns adapted (no skill files ported) from:
+================================================================================
+
+- garrytan/gstack (https://github.com/garrytan/gstack) — patterns for retro,
+  plan-tune, office-hours, design-shotgun-reference, document-release
+  reference
+- gsd-build/get-shit-done (https://github.com/gsd-build/get-shit-done) — patterns
+  for map-codebase, cleanup, Tier-6 milestone hybrid, plan-checker gate,
+  wave-based parallel slices, plant-seed dangling-thread markers
+- karpathy/autoresearch (https://github.com/karpathy/autoresearch) — autoresearch
+  pattern referenced from :closeout
+- alirezarezvani-engineering bundle — references to karpathy-coder (heavyweight
+  Karpathy enforcement), autoresearch-agent (CC adaptation of Karpathy autoresearch),
+  self-eval (pre-final-audit pattern), focused-fix (bug-fix scope discipline),
+  tech-debt-tracker (persistent debt across loops)
+
+vcf-framework gratefully stands on the shoulders of these projects.

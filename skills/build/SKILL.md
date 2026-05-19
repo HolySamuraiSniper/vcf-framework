@@ -45,6 +45,31 @@ Smallest change that makes the test pass. Resist the urge to "fix the surroundin
 
 Commit as soon as green. One commit per slice (or a small chain if the slice has internal phases). Commit messages explain WHY, not WHAT.
 
+**For narrow bug-fix slices**, also invoke `focused-fix` (alirezarezvani-engineering bundle) discipline — fix only what was asked, don't expand scope into related-but-different issues. The skill enforces the "every changed line traces to the reported bug" rule.
+
+**For UI / frontend slices**, also consider invoking `/design-shotgun` (gstack) before the Green step — generates multiple visual variants so you commit the right shape, not the first shape.
+
+### Karpathy discipline check (before committing)
+
+Before committing the slice, run the Karpathy 4-principle check from `/vcf-framework:karpathy-guidelines`. Especially:
+
+- **Surgical Changes**: does every changed line trace to a PRD acceptance criterion? If not, that line is scope creep — remove it.
+- **Simplicity First**: if you wrote 200 lines and 50 would do, rewrite.
+- **Think Before Coding**: did you state assumptions explicitly anywhere in the slice? Or did you silently pick interpretations?
+
+The check is cheap. The 4 principles are at `skills/karpathy-guidelines/SKILL.md`.
+
+### Wave-based parallel slices (Tier-4 only)
+
+For Tier-4 grindy work where 2+ slices in PLAN.md are **mutually independent** (no shared files, no FK dependencies, no read-after-write between them), build them in parallel:
+
+1. Use `TeamCreate` to spin up named teammates: `slice-1-builder`, `slice-2-builder`, etc.
+2. Each teammate runs Red → Green → Eval on its own slice in isolation.
+3. Teammates communicate progress via `SendMessage` if they hit cross-slice surprises.
+4. After all parallel slices commit, audit each one separately via `/vcf-framework:slice-audit` — never batch audits, the per-slice independence is the point.
+
+If slices share state or have ordering constraints, **do not parallelize** — sequential is correct.
+
 ### 4. Eval
 
 Tests passing ≠ correct. After green, run evals on the dimensions that actually matter:

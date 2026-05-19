@@ -23,6 +23,7 @@ If either is missing, **halt** and tell the user: "Missing `CONTEXT.md` for `<fe
 ## Inputs to read
 
 - `<cwd>/.vcf/<feature-slug>/CONTEXT.md` — the 3 things + assumptions + relevant prior decisions
+- `<cwd>/.vcf/<feature-slug>/IDEATION.md` if it exists — goals, constraints, risks, hard-to-falsify assumptions from `/vcf-framework:office-hours`. Ground the alternatives in these.
 - `<cwd>/.vcf/<feature-slug>/STATUS.md` — verify the loop state
 - Project `CLAUDE.md` / `AGENTS.md` if not already cached — for hard constraints
 

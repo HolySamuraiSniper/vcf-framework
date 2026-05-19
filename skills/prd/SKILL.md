@@ -101,6 +101,10 @@ If working with a stakeholder, this is the alignment checkpoint — get explicit
 
 If working solo, write it anyway — future-you is the stakeholder, and future-you will ship the wrong thing if "we'll figure out acceptance during build" survives this gate.
 
+## Alternative entry path
+
+If no `design.md` exists (rare path — `:brainstorm` was skipped because the design fell out of the conversation), an alternative is Pocock's `to-prd` skill — synthesize PRD directly from the chat conversation. Install separately if not already present. Output still lands in `<cwd>/.vcf/<feature-slug>/PRD.md` so downstream gates work.
+
 ## After this step
 
 1. Append to `STATUS.md`:

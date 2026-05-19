@@ -48,6 +48,15 @@ Read STATUS.md. Extract:
 
 **Whichever invocation you use:** give the reviewer **only the diff and the PRD acceptance criteria**. Never paste your own reasoning. Never paste BUILD-NOTES.md (that's your own thinking — defeats the purpose).
 
+**Karpathy discipline check.** Ask the reviewer to explicitly evaluate the slice against the 4 Karpathy principles from `/vcf-framework:karpathy-guidelines`:
+
+1. **Think Before Coding** — were assumptions surfaced, or silently picked?
+2. **Simplicity First** — is the slice the minimum code that satisfies the acceptance criteria, or speculative?
+3. **Surgical Changes** — does every changed line trace to a PRD acceptance criterion?
+4. **Goal-Driven Execution** — is each acceptance criterion paired with a passing test?
+
+If the reviewer can't answer all four, the slice isn't ready for `/vcf-framework:final-audit`.
+
 `Skill`-invoked reviewers (`/codex`) run in your context but spawn their own sub-agent with fresh context internally. `Agent`-invoked reviewers get fresh context for free.
 
 What the reviewer looks for:

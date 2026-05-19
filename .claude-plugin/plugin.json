@@ -1,7 +1,7 @@
 {
   "name": "vcf-framework",
-  "version": "0.1.0",
-  "description": "Vibe Coder Framework — 10-step doctrine, 8 gate commands. Each gate is a slash command that reads upstream artifacts and writes its own, so /clear runs between every gate. Two in-loop sub-steps (kaizen, sprint) live inside :build.",
+  "version": "0.2.0",
+  "description": "Vibe Coder Framework — 10-step doctrine, 8 gate commands, plus 15 cherry-picked utilities from gstack, GSD, Pocock, and Karpathy. Each gate reads upstream artifacts and writes its own, so /clear runs between every gate.",
   "author": {
     "name": "Toki Wilkinson",
     "email": "toki@lykkeligai.dk"

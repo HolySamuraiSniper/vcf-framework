@@ -32,6 +32,54 @@ Plus one reference skill: `/vcf-framework:overview` — the 10-step doctrine, ti
 
 (Steps 07 `kaizen` and 08 `sprint` are intentionally not gate commands — they're tactical sub-loops inside `/vcf-framework:build`. See the overview for guidance.)
 
+## v0.2 — Cherry-picked utilities (15 skills)
+
+In addition to the 8 gate commands + overview, v0.2 ships 15 cherry-picked skills from gstack, GSD, Pocock, and Karpathy. Each integrates with the gate flow at specific moments.
+
+### Ported skills (verbatim with attribution)
+
+| Skill | Source | When to use |
+|---|---|---|
+| `/vcf-framework:handoff` | Pocock | Compact a session into a fresh-agent pickup doc. Pairs with `/clear`. |
+| `/vcf-framework:zoom-out` | Pocock | Module-map an unfamiliar area. Strengthens `:context`. |
+| `/vcf-framework:prototype` | Pocock | Throwaway prototype between `:brainstorm` and `:prd`. |
+| `/vcf-framework:diagnose` | Pocock | Disciplined hard-bug loop during `:build`. |
+| `/vcf-framework:improve-codebase-architecture` | Pocock | Refactor mode between loops. |
+| `/vcf-framework:write-a-skill` | Pocock | Add a new skill to vcf-framework itself. |
+| `/vcf-framework:setup-precommit` | Pocock | One-shot bootstrap for fresh repos (Husky + lint-staged + typecheck + test). |
+| `/vcf-framework:grill-with-docs` | Pocock | Rigorous design interview — alternative to `:brainstorm` for novel features. |
+| `/vcf-framework:karpathy-guidelines` | Karpathy / multica-ai | 4 principles discipline overlay during `:build` or `:slice-audit`. |
+| `/vcf-framework:forensics` | GSD (adapted) | Post-mortem for FAILED or ABANDONED loops. |
+
+### Adapted skills (vcf-flavored versions of external patterns)
+
+| Skill | Inspired by | When to use |
+|---|---|---|
+| `/vcf-framework:retro` | gstack | Structured retrospective ritual before `:closeout`. |
+| `/vcf-framework:plan-tune` | gstack | Refine an existing `PLAN.md` that's close but not quite. |
+| `/vcf-framework:office-hours` | gstack | Pre-`:brainstorm` ideation conversation. |
+| `/vcf-framework:map-codebase` | GSD | Architectural overview of a large unfamiliar codebase. |
+| `/vcf-framework:cleanup` | GSD | Archive `.vcf/<slug>/` state after `:closeout` ships. |
+
+### Patterns baked into gate skills (no new files)
+
+- `:overview` — Tier-6 milestone hybrid (GSD + VCF combo for true milestones)
+- `:plan` — Goal-backward plan-check before exiting Plan Mode
+- `:build` — Karpathy discipline check + wave-based parallel slices for Tier-4
+- `:slice-audit` — Karpathy 4-principle check during review
+- `:final-audit` — Self-eval Step 0 pre-check (alirezarezvani-engineering pattern)
+- `:closeout` — Dangling-threads section + tech-debt-tracker reference
+
+### References (external skills the framework points at)
+
+- Pocock `to-prd` from `:prd` (alternative entry path)
+- Pocock `to-issues` from `:plan` (alternative slice breakdown)
+- gstack `design-shotgun` from `:plan` and `:build` (UI variant generation)
+- alirezarezvani `focused-fix` from `:build` (bug-fix scope discipline)
+- alirezarezvani `autoresearch-agent` from `:closeout` (Karpathy autoresearch loops)
+- alirezarezvani `tech-debt-tracker` from `:closeout` dangling-threads section
+- alirezarezvani `karpathy-coder` from `:karpathy-guidelines` (heavyweight enforcement)
+
 ## State convention
 
 Each invocation reads/writes files in `<cwd>/.vcf/<feature-slug>/`:

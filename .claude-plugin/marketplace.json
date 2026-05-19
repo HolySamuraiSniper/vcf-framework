@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "vcf-framework",
-      "description": "10-step doctrine, 8 gate commands: /vcf-framework:context, :brainstorm, :prd, :plan, :build, :slice-audit, :final-audit, :closeout. Plus :overview for reference. Each gate reads upstream artifact, writes its own, instructs user to /clear before next gate. In-loop kaizen + sprint sub-steps live inside :build.",
+      "description": "10-step doctrine, 8 gate commands plus 15 cherry-picked utilities. Gates: /vcf-framework:context, :brainstorm, :prd, :plan, :build, :slice-audit, :final-audit, :closeout. Plus :overview reference and ported skills from gstack (retro, plan-tune, office-hours), GSD (forensics, map-codebase, cleanup), Pocock (handoff, zoom-out, prototype, diagnose, improve-codebase-architecture, write-a-skill, setup-precommit, grill-with-docs), and Karpathy (karpathy-guidelines).",
       "author": {
         "name": "Toki Wilkinson",
         "email": "toki@lykkeligai.dk"
