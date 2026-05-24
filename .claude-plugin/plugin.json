@@ -1,7 +1,7 @@
 {
   "name": "vcf-framework",
-  "version": "0.2.0",
-  "description": "Vibe Coder Framework — 10-step doctrine, 8 gate commands, plus 15 cherry-picked utilities from gstack, GSD, Pocock, and Karpathy. Each gate reads upstream artifacts and writes its own, so /clear runs between every gate.",
+  "version": "0.2.1",
+  "description": "Vibe Coder Framework — 10-step doctrine, 8 gate commands, plus 15 cherry-picked utilities from gstack, GSD, Pocock, and Karpathy. Each gate reads upstream artifacts and writes its own, so /clear runs between every gate. v0.2.1 adds typeable slash commands (/vcf, /vcf-<gate>, /vcf-<utility>) as thin wrappers over the existing skills.",
   "author": {
     "name": "Toki Wilkinson",
     "email": "toki@lykkeligai.dk"
